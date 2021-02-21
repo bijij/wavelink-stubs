@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "wavelink-stubs"
+version = "0.9.6.1dev0"
+description = "wavelink stubs"
+homepage = "https://github.com/bijij/wavelink-stubs"
+authors = ["Josh <josh@josh-is.gay>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [
+    { include = "wavelink-stubs" }
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Typing :: Typed"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+"discord.py" = ">=1.2.5"
+mypy = ">=0.800"
+typing-extensions = "^3.7.4"
+
+[tool.poetry.dev-dependencies]
+"discord.py-stubs" = "^1.6.0"
+autopep8 = "^1.5.5"
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

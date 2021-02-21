@@ -1,0 +1,16 @@
+from typing import Final
+
+from .client import Client as Client
+from .errors import *
+from .eqs import *
+from .events import *
+from .player import *
+from .node import Node as Node
+from .meta import WavelinkMixin as WavelinkMixin
+from .websocket import Websocket
+
+__title__: Final[str] = ...
+__author__: Final[str] = ...
+__license__: Final[str] = ...
+__copyright__: Final[str] = ...
+__version__: Final[str] = ...
