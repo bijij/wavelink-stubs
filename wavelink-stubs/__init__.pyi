@@ -7,7 +7,7 @@ from .events import *
 from .player import *
 from .node import Node as Node
 from .meta import WavelinkMixin as WavelinkMixin
-from .websocket import Websocket
+from .websocket import Websocket as Websocket
 
 __title__: Final[str] = ...
 __author__: Final[str] = ...
