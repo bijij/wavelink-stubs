@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wavelink-stubs"
-version = "0.9.9.3"
+version = "0.9.9.4"
 description = "wavelink stubs"
 homepage = "https://github.com/bijij/wavelink-stubs"
 authors = ["Josh <josh@josh-is.gay>"]

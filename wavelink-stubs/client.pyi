@@ -5,19 +5,20 @@ from typing import Any, Callable, Dict, Generic, List, Optional, Union, Type, Ty
 from .player import Player, Track, TrackPlaylist
 from .node import Node
 
-from discord.ext.commands import AutoShardedBot, Bot, Context
+from discord.ext.commands import AutoShardedBot, Bot
 
-CtxT = TypeVar('CtxT', bound=Context)
-PlayerT = TypeVar('PlayerT', bound=Player)  # type: ignore
+PlayerT = TypeVar('PlayerT', bound=Player[Any])
+BotT = TypeVar('BotT', bound=Union[AutoShardedBot[Any], Bot[Any]])
 
-class Client(Generic[CtxT]):
-    bot: Union[AutoShardedBot[CtxT], Bot[CtxT]]
+
+class Client(Generic[BotT]):
     loop: AbstractEventLoop
     session: ClientSession
 
     nodes: Dict[str, Node]
 
-    def __init__(self, *, bot: Union[AutoShardedBot[CtxT], Bot[CtxT]]) -> None: ...
+    def __init__(self, *, bot: BotT) -> None:
+        self.bot: BotT = bot
 
     @property
     def shard_count(self) -> int: ...
@@ -26,7 +27,7 @@ class Client(Generic[CtxT]):
     def user_id(self) -> int: ...
 
     @property
-    def players(self) -> Dict[int, Player[CtxT]]: ...
+    def players(self) -> Dict[int, Player[Any]]: ...
 
     async def get_tracks(
         self, query: str, *, retry_on_failure: bool = ...) -> Optional[Union[TrackPlaylist, List[Track]]]: ...
@@ -43,7 +44,7 @@ class Client(Generic[CtxT]):
 
     @overload
     def get_player(self, guild_id: int, *,
-                   cls: None = ..., node_id: Optional[str] = ..., **kwargs: Any) -> Player[CtxT]: ...
+                   cls: None = ..., node_id: Optional[str] = ..., **kwargs: Any) -> Player[Any]: ...
 
     @overload
     def get_player(self, guild_id: int, *,
