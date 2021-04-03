@@ -2,8 +2,7 @@ from typing import Any, Callable, Dict, Optional, List, TypeVar, TYPE_CHECKING, 
 
 from aiohttp import ClientSession
 
-from discord.ext.commands.bot import BotBase
-from discord.ext.commands import Context
+from discord.ext.commands import AutoShardedBot, Bot, Context
 
 if TYPE_CHECKING:
     from .client import Client
@@ -33,7 +32,7 @@ class Node:
     @property
     def penalty(self) -> float: ...
 
-    async def connect(self, bot: BotBase[CtxT]) -> None: ...
+    async def connect(self, bot: Union[AutoShardedBot[CtxT], Bot[CtxT]]) -> None: ...
 
     async def get_tracks(
         self, query: str, *, retry_on_failure: bool = ...) -> Optional[Union[List[Track], TrackPlaylist]]: ...

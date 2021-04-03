@@ -5,20 +5,19 @@ from typing import Any, Callable, Dict, Generic, List, Optional, Union, Type, Ty
 from .player import Player, Track, TrackPlaylist
 from .node import Node
 
-from discord.ext.commands.bot import BotBase
-from discord.ext.commands import Context
+from discord.ext.commands import AutoShardedBot, Bot, Context
 
 CtxT = TypeVar('CtxT', bound=Context)
 PlayerT = TypeVar('PlayerT', bound=Player)  # type: ignore
 
 class Client(Generic[CtxT]):
-    bot: BotBase[CtxT]
+    bot: Union[AutoShardedBot[CtxT], Bot[CtxT]]
     loop: AbstractEventLoop
     session: ClientSession
 
     nodes: Dict[str, Node]
 
-    def __init__(self, *, bot: BotBase[CtxT]) -> None: ...
+    def __init__(self, *, bot: Union[AutoShardedBot[CtxT], Bot[CtxT]]) -> None: ...
 
     @property
     def shard_count(self) -> int: ...

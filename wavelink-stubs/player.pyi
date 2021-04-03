@@ -1,6 +1,6 @@
-from typing import Any, Dict, Generic, Optional, List, TYPE_CHECKING, TypeVar
+from typing import Any, Dict, Generic, Optional, List, TYPE_CHECKING, TypeVar, Union
 
-from discord.ext.commands.bot import BotBase
+from discord.ext.commands import AutoShardedBot, Bot, Context
 from discord.ext.commands.context import Context
 
 from .eqs import Equalizer
@@ -16,6 +16,7 @@ CtxT = TypeVar('CtxT', bound=Context)
 class Track:
     id: str
     info: Dict[str, Any]
+    query: Optional[str]
     title: str
     identifier: Optional[str]
     ytid: Optional[str]
@@ -25,6 +26,8 @@ class Track:
     author: Optional[str]
     is_stream: bool
     thumb: Optional[str]
+
+    def __init__(self, id_: str, info: Dict[str, Any], query: Optional[str] = ...) -> None: ...
 
     @property
     def is_dead(self) -> bool: ...
@@ -36,7 +39,7 @@ class TrackPlaylist:
 
 
 class Player(Generic[CtxT]):
-    bot: BotBase[CtxT]
+    bot: Union[AutoShardedBot[CtxT], Bot[CtxT]]
     guild_id: int
     node: Node
     last_update: float
@@ -48,7 +51,7 @@ class Player(Generic[CtxT]):
     channel_id: Optional[int]
 
 
-    def __init__(self, bot: BotBase[CtxT], guild_id: int,
+    def __init__(self, bot: Union[AutoShardedBot[CtxT], Bot[CtxT]], guild_id: int,
                  node: Node, **kwargs: Any) -> None: ...
 
     @property
