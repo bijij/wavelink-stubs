@@ -1,5 +1,4 @@
 from typing import Any, Dict, Generic, Optional, List, TYPE_CHECKING, TypeVar
-from discord.errors import ClientException
 
 from discord.ext.commands.bot import BotBase
 from discord.ext.commands.context import Context
@@ -8,6 +7,8 @@ from .eqs import Equalizer
 
 if TYPE_CHECKING:
     from .node import Node
+
+__all__ = ('Track', 'TrackPlaylist', 'Player')
 
 CtxT = TypeVar('CtxT', bound=Context)
 

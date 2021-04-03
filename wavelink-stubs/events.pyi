@@ -1,31 +1,43 @@
+from typing import Generic, TypeVar
+
+from discord.ext.commands import Context
+
 from .player import Player, Track
 
+__all__ = ('TrackEnd',
+           'TrackException',
+           'TrackStuck',
+           'TrackStart',
+           'WebsocketClosed')
 
-class TrackEnd:
-    player: Player
+
+CtxT = TypeVar('CtxT', bound=Context)
+
+class TrackEnd(Generic[CtxT]):
+    player: Player[CtxT]
     track: Track
     reason: str
 
 
-class TrackException:
-    player: Player
+class TrackException(Generic[CtxT]):
+    player: Player[CtxT]
     track: Track
     error: str
 
 
-class TrackStuck:
-    player: Player
+class TrackStuck(Generic[CtxT]):
+    player: Player[CtxT]
     track: Track
     threshold: int
 
 
-class TrackStart:
-    player: Player
+class TrackStart(Generic[CtxT]):
+    player: Player[CtxT]
     track: Track
 
 
-class WebsocketClosed:
-    player: Player
+class WebsocketClosed(Generic[CtxT]):
+    player: Player[CtxT]
     reason: str
     code: int
     guild_id: int

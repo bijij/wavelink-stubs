@@ -3,7 +3,7 @@ from typing import Any, Callable, Dict, Optional, List, TypeVar, TYPE_CHECKING, 
 from aiohttp import ClientSession
 
 from discord.ext.commands.bot import BotBase
-from discord.ext.commands.context import Context
+from discord.ext.commands import Context
 
 if TYPE_CHECKING:
     from .client import Client
@@ -19,7 +19,7 @@ class Node:
     region: str
     identifier: str
 
-    def __init__(self, host: str, port: int, shards: int, user_id: int, *, client: Client, session:  ClientSession, rest_uri: str,
+    def __init__(self, host: str, port: int, shards: int, user_id: int, *, client: Client[CtxT], session:  ClientSession, rest_uri: str,
                  password: str, region: str, identifer: str, shard_id: Optional[int] = ..., secure: bool = ...,
                  heartbeat: Optional[float] = ..., dumps: Callable[[Dict[str, Any]], Union[str, bytes]] = ...) -> None: ...
 
@@ -40,7 +40,7 @@ class Node:
 
     async def build_track(self, identifier: str) -> Track: ...
 
-    def get_player(self, guild_id: int) -> Optional[Player]: ...
+    def get_player(self, guild_id: int) -> Optional[Player[CtxT]]: ...
 
     async def on_event(self, event: str) -> None: ...
 

@@ -6,10 +6,10 @@ from .player import Player, Track, TrackPlaylist
 from .node import Node
 
 from discord.ext.commands.bot import BotBase
-from discord.ext.commands.context import Context
+from discord.ext.commands import Context
 
 CtxT = TypeVar('CtxT', bound=Context)
-PlayerT = TypeVar('PlayerT', bound=Player)
+PlayerT = TypeVar('PlayerT', bound=Player)  # type: ignore
 
 class Client(Generic[CtxT]):
     bot: BotBase[CtxT]
@@ -27,7 +27,7 @@ class Client(Generic[CtxT]):
     def user_id(self) -> int: ...
 
     @property
-    def players(self) -> Dict[int, Player]: ...
+    def players(self) -> Dict[int, Player[CtxT]]: ...
 
     async def get_tracks(
         self, query: str, *, retry_on_failure: bool = ...) -> Optional[Union[TrackPlaylist, List[Track]]]: ...
@@ -44,7 +44,7 @@ class Client(Generic[CtxT]):
 
     @overload
     def get_player(self, guild_id: int, *,
-                   cls: None = ..., node_id: Optional[str] = ..., **kwargs: Any) -> Player: ...
+                   cls: None = ..., node_id: Optional[str] = ..., **kwargs: Any) -> Player[CtxT]: ...
 
     @overload
     def get_player(self, guild_id: int, *,
