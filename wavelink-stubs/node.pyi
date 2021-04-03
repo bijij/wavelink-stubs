@@ -16,7 +16,7 @@ class Node:
     region: str
     identifier: str
 
-    def __init__(self, host: str, port: int, shards: int, user_id: int, *, client: Client, session:  ClientSession, rest_uri: str,
+    def __init__(self, host: str, port: int, shards: int, user_id: int, *, client: Client[Any], session:  ClientSession, rest_uri: str,
                  password: str, region: str, identifer: str, shard_id: Optional[int] = ..., secure: bool = ...,
                  heartbeat: Optional[float] = ..., dumps: Callable[[Dict[str, Any]], Union[str, bytes]] = ...) -> None: ...
 
