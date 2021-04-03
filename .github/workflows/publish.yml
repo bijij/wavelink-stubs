@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.7
+        python-version: 3.8
 
     - name: Get version
       id: version
@@ -24,7 +24,7 @@ jobs:
         echo ::set-output name=version::${GITHUB_REF#refs/tags/v}
 
     - name: Install Poetry
-      uses: snok/install-poetry@v1
+      uses: snok/install-poetry@v1.1.2
       with:
         version: 1.1.4
         virtualenvs-create: true
@@ -42,32 +42,14 @@ jobs:
         poetry publish --build -n
 
     - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
+      uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: v${{ steps.version.outputs.version }}
-        release_name: v${{ steps.version.outputs.version }}
+        name: v${{ steps.version.outputs.version }}
         draft: false
         prerelease: false
-
-    - name: Upload tarball
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/wavelink-stubs-${{ steps.version.outputs.version }}.tar.gz
-        asset_name: wavelink-stubs-${{ steps.version.outputs.version }}.tar.gz
-        asset_content_type: application/gzip
-
-    - name: Upload wheel
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/wavelink-stubs-${{ steps.version.outputs.version }}-py3-none-any.whl
-        asset_name: wavelink-stubs-${{ steps.version.outputs.version }}-py3-none-any.whl
-        asset_content_type: application/zip
+        files: |
+          dist/wavelink-stubs-${{ steps.version.outputs.version }}.tar.gz
+          dist/wavelink-stubs-${{ steps.version.outputs.version }}-py3-none-any.whl

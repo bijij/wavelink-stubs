@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wavelink-stubs"
-version = "0.9.9.0dev1"
+version = "0.9.9.1"
 description = "wavelink stubs"
 homepage = "https://github.com/bijij/wavelink-stubs"
 authors = ["Josh <josh@josh-is.gay>"]
@@ -19,7 +19,7 @@ include = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-wavelink = {git = "https://github.com/PythonistaGuild/Wavelink", rev = "84568aef815233ad531c35496dd200f9c1ab71df"}
+wavelink = "^0.9.9"
 mypy = ">=0.800"
 typing-extensions = "^3.7.4"
 
