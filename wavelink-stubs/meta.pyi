@@ -1,8 +1,9 @@
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Optional, TypeVar
 
 from .events import *
 from .node import Node
 
+ListenerT = TypeVar('ListenerT', bound=Callable[..., Any])
 
 class WavelinkMixin:
 
@@ -26,4 +27,4 @@ class WavelinkMixin:
         self, node: Node, payload: WebsocketClosed) -> None: ...
 
     @staticmethod
-    def listener(event: Optional[str] = ...) -> Callable[[], Callable[..., Any]]: ...
+    def listener(event: Optional[str] = ...) -> Callable[[ListenerT], ListenerT]: ...

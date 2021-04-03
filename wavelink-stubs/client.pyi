@@ -1,6 +1,6 @@
 from asyncio import AbstractEventLoop
 from aiohttp import ClientSession
-from typing import Any, Callable, Dict, List, Optional, Union, Type, TypeVar, overload
+from typing import Any, Callable, Dict, Generic, List, Optional, Union, Type, TypeVar, overload
 
 from .player import Player, Track, TrackPlaylist
 from .node import Node
@@ -9,13 +9,14 @@ from discord.ext.commands.bot import BotBase
 from discord.ext.commands.context import Context
 
 CtxT = TypeVar('CtxT', bound=Context)
+PlayerT = TypeVar('PlayerT', bound=Player)
 
-T = TypeVar('T', bound=Player)
-
-class Client:
-    bot: BotBase[Any]
+class Client(Generic[CtxT]):
+    bot: BotBase[CtxT]
     loop: AbstractEventLoop
     session: ClientSession
+
+    nodes: Dict[str, Node]
 
     def __init__(self, *, bot: BotBase[CtxT]) -> None: ...
 
@@ -47,7 +48,7 @@ class Client:
 
     @overload
     def get_player(self, guild_id: int, *,
-                   cls: Type[T] = ..., node_id: Optional[str] = ..., **kwargs: Any) -> T: ...
+                   cls: Type[PlayerT] = ..., node_id: Optional[str] = ..., **kwargs: Any) -> PlayerT: ...
 
     async def initiate_node(self, host: str, port: int, *, rest_uri: str, password: str, region: str,
                             indentifier: str, shard_id: Optional[int] = ..., secure: bool = ..., heartbeat: Optional[float] = ...) -> Node: ...

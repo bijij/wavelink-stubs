@@ -1,4 +1,5 @@
-from typing import Any, Dict, Optional, List, TYPE_CHECKING, TypeVar
+from typing import Any, Dict, Generic, Optional, List, TYPE_CHECKING, TypeVar
+from discord.errors import ClientException
 
 from discord.ext.commands.bot import BotBase
 from discord.ext.commands.context import Context
@@ -33,7 +34,18 @@ class TrackPlaylist:
     tracks: List[Track]
 
 
-class Player:
+class Player(Generic[CtxT]):
+    bot: BotBase[CtxT]
+    guild_id: int
+    node: Node
+    last_update: float
+    last_position: float
+    position_timestamp: float
+    volume: float
+    paused: bool
+    current: Optional[Track]
+    channel_id: Optional[int]
+
 
     def __init__(self, bot: BotBase[CtxT], guild_id: int,
                  node: Node, **kwargs: Any) -> None: ...
