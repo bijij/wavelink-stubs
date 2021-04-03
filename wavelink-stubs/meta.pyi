@@ -1,4 +1,4 @@
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 from .events import *
 from .node import Node
@@ -26,4 +26,4 @@ class WavelinkMixin:
         self, node: Node, payload: WebsocketClosed) -> None: ...
 
     @staticmethod
-    def listener(event: str) -> Callable[[], Callable[..., Any]]: ...
+    def listener(event: Optional[str] = ...) -> Callable[[], Callable[..., Any]]: ...
