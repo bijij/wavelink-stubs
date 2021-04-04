@@ -10,30 +10,30 @@ __all__ = ('TrackEnd',
 
 
 class TrackEnd:
-    player: Player[Any]
+    player: Player[Any, Any]
     track: Track
     reason: str
 
 
 class TrackException:
-    player: Player[Any]
+    player: Player[Any, Any]
     track: Track
     error: str
 
 
 class TrackStuck:
-    player: Player[Any]
+    player: Player[Any, Any]
     track: Track
     threshold: int
 
 
 class TrackStart:
-    player: Player[Any]
+    player: Player[Any, Any]
     track: Track
 
 
 class WebsocketClosed:
-    player: Player[Any]
+    player: Player[Any, Any]
     reason: str
     code: int
     guild_id: int

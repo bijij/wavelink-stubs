@@ -7,7 +7,7 @@ from .node import Node
 
 from discord.ext.commands import AutoShardedBot, Bot
 
-PlayerT = TypeVar('PlayerT', bound=Player[Any])
+PlayerT = TypeVar('PlayerT', bound=Player[Any, Any])
 BotT = TypeVar('BotT', bound=Union[AutoShardedBot[Any], Bot[Any]])
 
 
@@ -27,7 +27,7 @@ class Client(Generic[BotT]):
     def user_id(self) -> int: ...
 
     @property
-    def players(self) -> Dict[int, Player[Any]]: ...
+    def players(self) -> Dict[int, Player[Any, Any]]: ...
 
     async def get_tracks(
         self, query: str, *, retry_on_failure: bool = ...) -> Optional[Union[TrackPlaylist, List[Track]]]: ...
@@ -44,7 +44,7 @@ class Client(Generic[BotT]):
 
     @overload
     def get_player(self, guild_id: int, *,
-                   cls: None = ..., node_id: Optional[str] = ..., **kwargs: Any) -> Player[Any]: ...
+                   cls: None = ..., node_id: Optional[str] = ..., **kwargs: Any) -> Player[Any, Any]: ...
 
     @overload
     def get_player(self, guild_id: int, *,

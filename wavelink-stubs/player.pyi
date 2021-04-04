@@ -1,16 +1,16 @@
 from typing import Any, Dict, Generic, Optional, List, TYPE_CHECKING, TypeVar, Union
 
-from discord.ext.commands import AutoShardedBot, Bot, Context
-from discord.ext.commands.context import Context
+from discord.ext.commands import AutoShardedBot, Bot
 
 from .eqs import Equalizer
 
 if TYPE_CHECKING:
     from .node import Node
 
-__all__ = ('Track', 'TrackPlaylist', 'Player')
-
 BotT = TypeVar('BotT', bound=Union[AutoShardedBot[Any], Bot[Any]])
+TrackT = TypeVar('TrackT', bound='Track')
+
+__all__ = ('Track', 'TrackPlaylist', 'Player')
 
 
 class Track:
@@ -38,7 +38,7 @@ class TrackPlaylist:
     tracks: List[Track]
 
 
-class Player(Generic[BotT]):
+class Player(Generic[BotT, TrackT]):
     bot: BotT
     guild_id: int
     node: Node
@@ -47,7 +47,7 @@ class Player(Generic[BotT]):
     position_timestamp: float
     volume: float
     paused: bool
-    current: Optional[Track]
+    current: Optional[TrackT]
     channel_id: Optional[int]
 
 
@@ -76,7 +76,7 @@ class Player(Generic[BotT]):
 
     async def disconnect(self, *, force: bool = ...) -> None: ...
 
-    async def play(self, track: Track, *, replace: bool = ...,
+    async def play(self, track: TrackT, *, replace: bool = ...,
                    start: int = ..., end: int = ...) -> None: ...
 
     async def stop(self) -> None: ...
