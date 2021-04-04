@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 __all__ = ('Track', 'TrackPlaylist', 'Player')
 
-CtxT = TypeVar('CtxT', bound=Context)
+BotT = TypeVar('BotT', bound=Union[AutoShardedBot[Any], Bot[Any]])
 
 
 class Track:
@@ -38,8 +38,8 @@ class TrackPlaylist:
     tracks: List[Track]
 
 
-class Player(Generic[CtxT]):
-    bot: Union[AutoShardedBot[CtxT], Bot[CtxT]]
+class Player(Generic[BotT]):
+    bot: BotT
     guild_id: int
     node: Node
     last_update: float
@@ -51,7 +51,7 @@ class Player(Generic[CtxT]):
     channel_id: Optional[int]
 
 
-    def __init__(self, bot: Union[AutoShardedBot[CtxT], Bot[CtxT]], guild_id: int,
+    def __init__(self, bot: BotT, guild_id: int,
                  node: Node, **kwargs: Any) -> None: ...
 
     @property

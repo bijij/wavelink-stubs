@@ -1,8 +1,8 @@
-from typing import Any, Callable, Dict, Optional, List, TypeVar, TYPE_CHECKING, Union
+from typing import Any, Callable, Dict, Optional, List, TYPE_CHECKING, Union
 
 from aiohttp import ClientSession
 
-from discord.ext.commands import AutoShardedBot, Bot, Context
+from discord.ext.commands import AutoShardedBot, Bot
 
 if TYPE_CHECKING:
     from .client import Client

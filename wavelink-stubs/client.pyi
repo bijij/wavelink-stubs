@@ -12,13 +12,13 @@ BotT = TypeVar('BotT', bound=Union[AutoShardedBot[Any], Bot[Any]])
 
 
 class Client(Generic[BotT]):
+    bot: BotT
     loop: AbstractEventLoop
     session: ClientSession
 
     nodes: Dict[str, Node]
 
-    def __init__(self, *, bot: BotT) -> None:
-        self.bot: BotT = bot
+    def __init__(self, *, bot: BotT) -> None: ...
 
     @property
     def shard_count(self) -> int: ...
